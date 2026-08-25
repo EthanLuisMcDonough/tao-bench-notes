@@ -33,4 +33,4 @@ echo Clang++ $CXX
 export VERBOSE=1
 
 cd $DCPERF_DIR
-$PY_ENV/bin/python3 ./benchpress_cli.py --verbose install -f $PROJECT | tee $BUILD_LOGS/build_$BUILD_TIMESTAMP.log 2>&1
+$PY_ENV/bin/python3 ./benchpress_cli.py --verbose install -f $PROJECT > $BUILD_LOGS/build_$BUILD_TIMESTAMP.log 2>&1

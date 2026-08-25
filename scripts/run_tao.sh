@@ -8,6 +8,10 @@ if [ ! -f $JSON_CONFIG ]; then
     return 1
 fi
 
+RUN_TIMESTAMP=$(date +%s)
+RUN_LOGS=$SCRIPT_DIR/../run_logs
+mkdir -p $RUN_LOGS
+
 PY_ENV=$(cat $JSON_CONFIG | jq -r ".PY_ENV")
 DCPERF_DIR=$(cat $JSON_CONFIG | jq -r ".DCPERF_DIR")
 PROJECT=$(cat $JSON_CONFIG | jq -r ".PROJECT")
@@ -18,4 +22,4 @@ sysctl -w net.ipv4.ip_local_port_range='1024 65535'
 
 source $PY_ENV/bin/activate
 cd $DCPERF_DIR
-$PY_ENV/bin/python3 ./benchpress_cli.py run $PROJECT -i '{"clients_per_thread": 75}'
+$PY_ENV/bin/python3 ./benchpress_cli.py run $PROJECT -i '{"clients_per_thread": 75}' > $RUN_LOGS/run_$RUN_TIMESTAMP.log 2>&1
