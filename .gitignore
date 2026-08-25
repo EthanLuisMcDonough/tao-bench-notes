@@ -1,0 +1,4 @@
+config.json
+build_logs
+runs
+*.log

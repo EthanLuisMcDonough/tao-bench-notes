@@ -1,0 +1,6 @@
+{
+    "PY_ENV": "/YOUR_HOME/dcperfenv",
+    "DCPERF_DIR": "/YOUR_HOME/DCPerf",
+    "LLVM_INSTALL": "/YOUR_HOME/llvm_build/install",
+    "PROJECT": "tao_bench_standalone"
+}
