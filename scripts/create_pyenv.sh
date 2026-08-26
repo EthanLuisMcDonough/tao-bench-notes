@@ -6,7 +6,7 @@
 # E.g. if PY_ENV is /my_dir/this, the env will be installed there,
 # NOT /my_dir/this/.env
 
-SCRIPT_DIR=$( dirname -- $0 )
+SCRIPT_DIR=$( realpath $(dirname -- $0) )
 JSON_CONFIG=$SCRIPT_DIR/../config.json
 
 if [ ! -f $JSON_CONFIG ]; then

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SCRIPT_DIR=$( dirname -- $0 )
+SCRIPT_DIR=$( realpath $(dirname -- $0) )
 JSON_CONFIG=$SCRIPT_DIR/../config.json
 
 if [ ! -f $JSON_CONFIG ]; then

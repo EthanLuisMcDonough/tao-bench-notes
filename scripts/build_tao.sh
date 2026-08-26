@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Invoke as root
-SCRIPT_DIR=$( dirname -- $0 )
+SCRIPT_DIR=$( realpath $(dirname -- $0) )
 JSON_CONFIG=$SCRIPT_DIR/../config.json
 
 if [ ! -f $JSON_CONFIG ]; then
@@ -33,4 +33,8 @@ echo Clang++ $CXX
 export VERBOSE=1
 
 cd $DCPERF_DIR
-$PY_ENV/bin/python3 ./benchpress_cli.py --verbose install -f $PROJECT > $BUILD_LOGS/build_$BUILD_TIMESTAMP.log 2>&1
+
+LOG_FILE=$BUILD_LOGS/build_$BUILD_TIMESTAMP.log
+echo Writing to $LOG_FILE
+
+$PY_ENV/bin/python3 ./benchpress_cli.py --verbose install -f $PROJECT 2>&1 | tee $LOG_FILE
