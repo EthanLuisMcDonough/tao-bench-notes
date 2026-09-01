@@ -16,6 +16,7 @@ DCPERF_DIR=$(cat $JSON_CONFIG | jq -r ".DCPERF_DIR")
 PROJECT=$(cat $JSON_CONFIG | jq -r ".PROJECT")
 export DCPERF_PERF_RECORD=1
 RUN_CONFIG=$(cat $JSON_CONFIG | jq -r ".CONFIGS.$PROJECT // {} | tostring")
+LLVM_INSTALL=$(cat $JSON_CONFIG | jq -r ".LLVM_INSTALL")
 
 ulimit -n 100000
 sysctl -w net.ipv4.ip_local_port_range='1024 65535'
@@ -32,9 +33,13 @@ mkdir -p $RUN_DIR
 RESULTS_DIR=$RUN_DIR/results
 ARTIFACTS_DIR=$RUN_DIR/artifacts
 LOG_FILE=$RUN_DIR/run_cmd.log
+TARGET=$($LLVM_INSTALL/bin/clang -dumpmachine)
 
 mkdir -p $RESULTS_DIR
 mkdir -p $ARTIFACTS_DIR
+
+export LD_LIBRARY_PATH=$LLVM_INSTALL/lib/$TARGET:$LLVM_INSTALL/lib:$LD_LIBRARY_PATH
+echo LD_LIBRARY_PATH $LD_LIBRARY_PATH
 
 echo Writing to $LOG_FILE
 $PY_ENV/bin/python3 ./benchpress_cli.py -t $RUN_TIMESTAMP --results $RESULTS_DIR \
