@@ -42,4 +42,4 @@ cd $DCPERF_DIR
 LOG_FILE=$BUILD_LOGS/build_$BUILD_TIMESTAMP.log
 echo Writing to $LOG_FILE
 
-$PY_ENV/bin/python3 ./benchpress_cli.py --verbose install -f $PROJECT 2>&1 | tee $LOG_FILE
+$PY_ENV/bin/python3 ./benchpress_cli.py --verbose install --toolchain clang -f $PROJECT 2>&1 | tee $LOG_FILE

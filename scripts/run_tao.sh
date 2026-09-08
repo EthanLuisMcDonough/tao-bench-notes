@@ -34,13 +34,16 @@ RESULTS_DIR=$RUN_DIR/results
 ARTIFACTS_DIR=$RUN_DIR/artifacts
 LOG_FILE=$RUN_DIR/run_cmd.log
 TARGET=$($LLVM_INSTALL/bin/clang -dumpmachine)
+PERF_DIR=$RUN_DIR/perflogs
 
 mkdir -p $RESULTS_DIR
 mkdir -p $ARTIFACTS_DIR
+mkdir -p $PERF_DIR
 
 export LD_LIBRARY_PATH=$LLVM_INSTALL/lib/$TARGET:$LLVM_INSTALL/lib:$LD_LIBRARY_PATH
 echo LD_LIBRARY_PATH $LD_LIBRARY_PATH
 
 echo Writing to $LOG_FILE
 $PY_ENV/bin/python3 ./benchpress_cli.py -t $RUN_TIMESTAMP --results $RESULTS_DIR \
-	--artifacts-dir $ARTIFACTS_DIR run -i $RUN_CONFIG $PROJECT 2>&1 | tee $LOG_FILE
+	--artifacts-dir $ARTIFACTS_DIR run -i $RUN_CONFIG $PROJECT 2>&1 | tee $LOG_FILE & \
+	$SCRIPT_DIR/prof_bg.sh $PERF_DIR & wait
