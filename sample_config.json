@@ -2,5 +2,12 @@
     "PY_ENV": "/YOUR_HOME/dcperfenv",
     "DCPERF_DIR": "/YOUR_HOME/DCPerf",
     "LLVM_INSTALL": "/YOUR_HOME/llvm_build/install",
-    "PROJECT": "tao_bench_standalone"
+    "GCC_INSTALL": "/YOUR_HOME/gcc_build/install",
+    "PROJECT": "tao_bench_standalone",
+    "CONFIGS": {
+        "tao_bench_standalone": {
+            "auto_fix_ports": 1,
+            "auto_fix_ulimit": 1
+        }
+    }
 }
